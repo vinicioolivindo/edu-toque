@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "edu-toque",
-    "slug": "edu-toque",
+    "name": "varejao-demandas",
+    "slug": "varejao-demandas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "edutoque",
+    "scheme": "varejaodemandas",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
