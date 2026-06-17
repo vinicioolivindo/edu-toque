@@ -1,8 +1,16 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 
-// Captura a configuração padrão do Expo
 const config = getDefaultConfig(__dirname);
 
-// Envolve a configuração com o NativeWind, apontando exatamente para o seu arquivo CSS global
-module.exports = withNativeWind(config, { input: "./styles/global.css" });
+config.transformer.babelTransformerPath =
+  require.resolve("react-native-svg-transformer/expo");
+
+config.resolver.assetExts =
+  config.resolver.assetExts.filter((ext) => ext !== "svg");
+
+config.resolver.sourceExts.push("svg");
+
+module.exports = withNativeWind(config, {
+  input: "./styles/global.css",
+});
