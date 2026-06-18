@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "236092594136",
+    "project_id": "edu-toque",
+    "storage_bucket": "edu-toque.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236092594136:android:2eb5ea66b4750200a0c4ad",
+        "android_client_info": {
+          "package_name": "com.devinicio.edutoque"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIncKzHAs44LIcsVqUSxuBY2AT-ZsBCvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

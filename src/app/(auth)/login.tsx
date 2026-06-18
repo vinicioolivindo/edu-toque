@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Logo from '@/assets/svg/logo.svg'
 import {Input} from '@/src/components/Input';
 import Button from '@/src/components/Button';
 import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/src/utils/firebaseConfig';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -13,8 +15,41 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Erro', 'Por favor, preencha o e-mail e a senha.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Faz o login no Firebase Auth
+      await signInWithEmailAndPassword(auth, email, password);
+      
+      // Se der certo, envia para as abas principais deletando o histórico de login
+      router.replace('/(tabs)');
+    } catch (error: any) {
+      console.error(error);
+      let errorMessage = 'E-mail ou senha incorretos.';
+      
+      if (error.code === 'auth/invalid-credential') {
+        errorMessage = 'Credenciais inválidas. Verifique os dados.';
+      } else if (error.code === 'auth/user-not-found') {
+        errorMessage = 'Usuário não encontrado.';
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Senha incorreta.';
+      }
+
+      Alert.alert('Erro no Login', errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+ 
   return (
     <SafeAreaView className="flex-1 bg-white">
       {/* KeyboardAvoidingView garante que o teclado não cubra os campos no iOS/Android */}
@@ -66,12 +101,7 @@ export default function LoginScreen() {
 
             {/* Lembrar de mim / Esqueceu a senha */}
             <View className="flex-row justify-between items-center mb-10">
-              <TouchableOpacity onPress={() => setRememberMe(!rememberMe)} className="flex-row items-center gap-2">
-                <View className={`w-6 h-6 border rounded-md items-center justify-center ${rememberMe ? 'bg-brandTeal border-brandTeal' : 'border-gray-300'}`}>
-                    {rememberMe && <Ionicons name="checkmark" size={18} color="white" />}
-                </View>
-                <Text className="text-gray-500 text-lg">Lembrar de mim</Text>
-              </TouchableOpacity>
+              
 
               <TouchableOpacity>
                 <Text className="text-primaryColor text-lg font-bold">Esqueceu a senha?</Text>
@@ -79,7 +109,7 @@ export default function LoginScreen() {
             </View>
 
             {/* Botão Entrar */}
-          <Button title="Entrar"/>
+          <Button title={loading ? 'Entrando...' : 'Entrar'} onPress={handleLogin} disabled={loading}/>
 
             {/* Divisor "Ou entre por" */}
             <View className="flex-row items-center mb-8">
