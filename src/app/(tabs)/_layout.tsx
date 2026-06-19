@@ -117,7 +117,7 @@ export default function TabLayout() {
 
       {/* Botão Central de Destaque (Play/Studio) — agora com SVG real e inversão de cor */}
       <Tabs.Screen
-        name="studio"
+        name="feed"
         options={{
           title: '',
           tabBarButton: (props) => <CentralTabButton {...props} />,
