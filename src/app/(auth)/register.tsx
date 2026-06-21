@@ -137,9 +137,8 @@ export default function RegisterScreen() {
                 </View>
                 <TextInput
                 placeholder="(00) 0000-0000"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={setPassword}
+                value={phone}
+                onChangeText={setPhone}
               />
               </View>
             </View>

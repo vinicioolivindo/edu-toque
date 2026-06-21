@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Logo from '@/assets/svg/logov2.svg'
 
-export default function HomeScreen() {
+export default function StudentHomeScreen() {
   const categories = Array(8).fill({ name: 'Matemática' });
   const videos = Array(3).fill({ title: 'Dicas de mátematica', author: 'Ajay Kumar' });
   const educators = Array(3).fill({ name: 'Brooklyn Simmons', period: 'Última semana', followers: '2.4K' });
