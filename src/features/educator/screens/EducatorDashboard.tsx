@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Logo from '@/assets/svg/logov2.svg';
+import { useRouter } from 'expo-router';
 
 export function EducatorDashboard() {
+
+  const router = useRouter()
+
   const chartData = [
     { day: 'dom', value: 45 },
     { day: 'seg', value: 28 },
@@ -44,12 +48,12 @@ export function EducatorDashboard() {
             </Text>
           </View>
 
-          <View className="flex-row items-center gap-2">
+          <TouchableOpacity className="flex-row items-center gap-2"  onPress={() => router.push('/feed')}>
             <Logo width={34} height={34} />
             <Text className="font-bold text-primaryColor text-lg">
               EduToque
             </Text>
-          </View>
+            </TouchableOpacity>
 
         </View>
 
@@ -60,17 +64,13 @@ export function EducatorDashboard() {
         </Text>
 
         <View className="bg-white rounded-[32px] p-5 shadow-sm mb-8">
-
           <View className="flex-row">
-
             <View className="w-28 h-28 rounded-3xl bg-[#D9F3F0] items-center justify-center">
-
               <Ionicons
                 name="play"
                 size={34}
                 color="#2CC0B7"
               />
-
             </View>
 
             <View className="flex-1 ml-4">
@@ -105,7 +105,7 @@ export function EducatorDashboard() {
 
             {metrics.map(([icon, value]) => (
               <View
-                key={value}
+              key={value}
                 className="bg-[#F3F6FA] rounded-2xl px-4 py-3 items-center w-[22%]"
               >
                 <Ionicons
@@ -199,7 +199,6 @@ function MetricCard({
         <Text className="text-3xl font-bold">
           {value}
         </Text>
-
         <Ionicons
           name={
             positive
@@ -213,9 +212,7 @@ function MetricCard({
               : '#EF4444'
           }
         />
-
       </View>
-
     </View>
   );
 }
